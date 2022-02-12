@@ -1,5 +1,6 @@
 package com.example.sunnyweather.logic
 
+import android.util.Log
 import android.view.KeyEvent
 import androidx.lifecycle.liveData
 import com.example.sunnyweather.logic.model.Place
@@ -13,9 +14,11 @@ object Repository {
         val result = try {
             val placeResponse = SunnyWeatherNetwork.searchPlaces(query)
             if (placeResponse.status == "ok"){
+                Log.d("Activity","placeResponse is ${placeResponse.status}")
                 val places = placeResponse.places
                 Result.success(places)
             }else{
+                Log.d("Activity","Failed")
                 Result.failure(RuntimeException("response status is ${placeResponse.status}"))
             }
         }catch (e: Exception){
